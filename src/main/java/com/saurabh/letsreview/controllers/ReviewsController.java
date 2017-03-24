@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saurabh.letsreview.datamodel.entity.Review;
 import com.saurabh.letsreview.datamodel.repository.ReviewDAOService;
+import com.saurabh.letsreview.datamodel.repository.TopicDAOService;
 
 @Controller
 @ResponseBody
@@ -24,6 +25,9 @@ public class ReviewsController {
 
 	@Autowired
 	private ReviewDAOService reviewDAO;
+
+	@Autowired
+	private TopicDAOService topicDAO;
 
 	@RequestMapping(value = "/{topicName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String process(HttpServletRequest httpRequest, @PathVariable("topicName") String topicName)
