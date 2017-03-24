@@ -1,0 +1,30 @@
+GET http://localhost:8080/letsreview/reviews/{topic}
+{
+	"list":[
+				{ 
+					"rating" : 4
+					"body": "this is a good company"
+					"created_on": "2017-01-14 21:34:56"
+					"user" : {
+								"id" : 4
+								"name" : "saurabh gupta"
+
+							 }
+
+				},
+				
+				{
+					"rating" : 3
+					"body": "Leave this company as soon as possible."
+					"user" : {
+								"id" : 5
+								"name" : "aman kumar"
+							 }
+
+				},
+				
+				{
+
+				}
+			]		
+}
