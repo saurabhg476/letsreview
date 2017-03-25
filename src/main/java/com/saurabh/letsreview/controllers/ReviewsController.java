@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.saurabh.letsreview.api.response.GetReviewsResponse;
 import com.saurabh.letsreview.api.response.ResponseReviewObject;
 import com.saurabh.letsreview.datamodel.entity.Review;
+import com.saurabh.letsreview.datamodel.entity.Topic;
 import com.saurabh.letsreview.datamodel.repository.ReviewDAOService;
 import com.saurabh.letsreview.datamodel.repository.TopicDAOService;
 
@@ -38,6 +39,11 @@ public class ReviewsController {
 	public ResponseEntity<String> process(HttpServletRequest httpRequest, @PathVariable("topicName") String topicName)
 			throws InterruptedException {
 		
+		Topic topic = topicDAO.findTopicByName(topicName);
+		if (topic == null) {
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		}
+
 		List<Review> reviews = reviewDAO.findReviewsByTopicName(topicName);
 		
 		GetReviewsResponse response = new GetReviewsResponse();
