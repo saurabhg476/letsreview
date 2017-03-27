@@ -1,13 +1,10 @@
 package com.saurabh.letsreview.datamodel.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +15,8 @@ public class Authentication {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "username")
-	private User user;
+	@Column(name = "username")
+	private String username;
 
 	@Column(name = "password")
 	private String password;
@@ -33,12 +29,12 @@ public class Authentication {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String user) {
+		this.username = user;
 	}
 
 	public String getPassword() {
