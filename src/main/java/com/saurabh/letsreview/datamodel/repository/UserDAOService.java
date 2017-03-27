@@ -13,4 +13,10 @@ public interface UserDAOService extends CrudRepository<User, Long> {
 
 	@Query(nativeQuery = true, value = "select * from user where username = ?1")
 	public User findUserByUsername(String username);
+
+	@Query(nativeQuery = true, value = "select * from user where phone_no = ?1")
+	public User findUserByPhoneNo(String phoneNo);
+
+	@Query(nativeQuery = true, value = "select * from user where email_id = ?1")
+	public User findUserByEmailId(String emailId);
 }
