@@ -55,8 +55,12 @@ public class TestEntities {
 		for (Review review : reviews) {
 			System.out.println(review.getBody());
 			System.out.println(review.getCreatedOn().toString());
-			System.out.println(review.getUser().getName());
-			System.out.println(review.getTopic().getName());
+
+			User user = userDAO.findOne(review.getUserId());
+			Topic topic = topicDAO.findOne(review.getTopicId());
+
+			System.out.println(user.getName());
+			System.out.println(topic.getName());
 		}
 	}
 }
