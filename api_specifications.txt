@@ -28,3 +28,14 @@ GET http://localhost:8080/letsreview/reviews/{topic}
 				}
 			]		
 }
+
+
+
+POST http://localhost:8080/letsreview/reviews
+
+{
+	"rating" : 5,
+	"body" : "very affordable price",
+	"user_id" : 4,
+	"topic_id": 3
+}

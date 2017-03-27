@@ -1,4 +1,8 @@
 validations:
 2000-3000
 
+1000: Oops! Something went wrong.
 2000: username not available.
+2001: This mobile no is already registered
+2002: This email id is already registered
+
