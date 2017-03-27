@@ -17,7 +17,7 @@ public interface ReviewDAOService extends CrudRepository<Review, Long> {
 
 	@Transactional(value = "letsReviewTransactionManager")
 	@Modifying
-	@Query(nativeQuery = true, value = "INSERT INTO review(body,user_id,rating,created_on,topic_id) VALUES (?1,?2, ?3,now(),(select id from topic where name = ?4))")
-	public void createReview(String body, Long user_id, int rating, String topic_name);
+	@Query(nativeQuery = true, value = "INSERT INTO review(body,user_id,rating,created_on,topic_id) VALUES (?1,(select id from user where username = ?2), ?3,now(),(select id from topic where name = ?4))")
+	public void createReview(String body, String username, int rating, String topic_name);
 
 }

@@ -21,6 +21,7 @@ import com.saurabh.letsreview.api.response.GetReviewsResponse;
 import com.saurabh.letsreview.api.response.ResponseReviewObject;
 import com.saurabh.letsreview.datamodel.entity.Review;
 import com.saurabh.letsreview.datamodel.entity.Topic;
+import com.saurabh.letsreview.datamodel.entity.User;
 import com.saurabh.letsreview.datamodel.repository.ReviewDAOService;
 import com.saurabh.letsreview.datamodel.repository.TopicDAOService;
 import com.saurabh.letsreview.datamodel.repository.UserDAOService;
@@ -60,8 +61,10 @@ public class ReviewsController {
 			responseReviewObject.setRating(review.getRating());
 			responseReviewObject.setBody(review.getBody());
 			responseReviewObject.setCreated_on(review.getCreatedOn());
-			responseReviewObject.getUser().setId(review.getUser().getId());
-			responseReviewObject.getUser().setName(review.getUser().getName());
+
+			User user = userDAO.findOne(review.getUserId());
+			responseReviewObject.getUser().setUsername(user.getUsername());
+			responseReviewObject.getUser().setName(user.getName());
 			response.getList().add(responseReviewObject);
 		}
 		
@@ -76,12 +79,12 @@ public class ReviewsController {
 		PostReviewsRequest postReviewsRequest = gson.fromJson(jsonRequest, PostReviewsRequest.class);
 		
 		String body = postReviewsRequest.getBody();
-		Long user_id = postReviewsRequest.getUser_id();
+		String username = postReviewsRequest.getUsername();
 		int rating = postReviewsRequest.getRating();
 		String topic_name = postReviewsRequest.getTopic_name();
 		
 		
-		reviewDAO.createReview(body, user_id, rating, topic_name);
+		reviewDAO.createReview(body, username, rating, topic_name);
 		return new ResponseEntity<String>(HttpStatus.OK);
 
 	}
