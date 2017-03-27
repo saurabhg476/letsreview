@@ -1,4 +1,4 @@
-package com.saurabh.letsreview.api.response;
+package com.project.letsreview.api.response;
 
 public class ResponseUserObject {
 	private String username;

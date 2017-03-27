@@ -1,11 +1,11 @@
-package com.saurabh.letsreview.datamodel.repository;
+package com.project.letsreview.datamodel.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.saurabh.letsreview.datamodel.entity.User;
+import com.project.letsreview.datamodel.entity.User;
 
 public interface UserDAOService extends CrudRepository<User, Long> {
 

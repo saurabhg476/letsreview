@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.saurabh.letsreview.datamodel.entity.Review;
-import com.saurabh.letsreview.datamodel.entity.Topic;
-import com.saurabh.letsreview.datamodel.entity.User;
-import com.saurabh.letsreview.datamodel.repository.ReviewDAOService;
-import com.saurabh.letsreview.datamodel.repository.TopicDAOService;
-import com.saurabh.letsreview.datamodel.repository.UserDAOService;
+import com.project.letsreview.datamodel.entity.Review;
+import com.project.letsreview.datamodel.entity.Topic;
+import com.project.letsreview.datamodel.entity.User;
+import com.project.letsreview.datamodel.repository.ReviewDAOService;
+import com.project.letsreview.datamodel.repository.TopicDAOService;
+import com.project.letsreview.datamodel.repository.UserDAOService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:META-INF/spring/applicationContext*.xml" })

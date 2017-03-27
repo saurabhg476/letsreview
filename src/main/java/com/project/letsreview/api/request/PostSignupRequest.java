@@ -1,4 +1,4 @@
-package com.saurabh.letsreview.api.request;
+package com.project.letsreview.api.request;
 
 public class PostSignupRequest {
 	private String name;

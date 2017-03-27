@@ -1,4 +1,4 @@
-package com.saurabh.letsreview.datamodel.entity;
+package com.project.letsreview.datamodel.entity;
 
 import java.util.Date;
 

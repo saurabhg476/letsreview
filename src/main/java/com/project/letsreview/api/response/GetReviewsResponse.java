@@ -1,4 +1,4 @@
-package com.saurabh.letsreview.api.response;
+package com.project.letsreview.api.response;
 
 import java.util.ArrayList;
 import java.util.List;

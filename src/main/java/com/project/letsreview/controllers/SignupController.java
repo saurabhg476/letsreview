@@ -1,4 +1,4 @@
-package com.saurabh.letsreview.controllers;
+package com.project.letsreview.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.saurabh.letsreview.api.request.PostSignupRequest;
-import com.saurabh.letsreview.api.response.GenericFailureResponse;
-import com.saurabh.letsreview.api.response.GenericResponse;
-import com.saurabh.letsreview.datamodel.entity.Authentication;
-import com.saurabh.letsreview.datamodel.entity.User;
-import com.saurabh.letsreview.datamodel.repository.AuthenticationDAOService;
-import com.saurabh.letsreview.datamodel.repository.UserDAOService;
+import com.project.letsreview.api.request.PostSignupRequest;
+import com.project.letsreview.api.response.GenericFailureResponse;
+import com.project.letsreview.api.response.GenericResponse;
+import com.project.letsreview.datamodel.entity.Authentication;
+import com.project.letsreview.datamodel.entity.User;
+import com.project.letsreview.datamodel.repository.AuthenticationDAOService;
+import com.project.letsreview.datamodel.repository.UserDAOService;
 
 @Controller
 @ResponseBody

@@ -1,4 +1,4 @@
-package com.saurabh.letsreview.controllers;
+package com.project.letsreview.controllers;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.saurabh.letsreview.api.request.PostReviewsRequest;
-import com.saurabh.letsreview.api.response.GetReviewsResponse;
-import com.saurabh.letsreview.api.response.ResponseReviewObject;
-import com.saurabh.letsreview.datamodel.entity.Review;
-import com.saurabh.letsreview.datamodel.entity.Topic;
-import com.saurabh.letsreview.datamodel.entity.User;
-import com.saurabh.letsreview.datamodel.repository.ReviewDAOService;
-import com.saurabh.letsreview.datamodel.repository.TopicDAOService;
-import com.saurabh.letsreview.datamodel.repository.UserDAOService;
+import com.project.letsreview.api.request.PostReviewsRequest;
+import com.project.letsreview.api.response.GetReviewsResponse;
+import com.project.letsreview.api.response.ResponseReviewObject;
+import com.project.letsreview.datamodel.entity.Review;
+import com.project.letsreview.datamodel.entity.Topic;
+import com.project.letsreview.datamodel.entity.User;
+import com.project.letsreview.datamodel.repository.ReviewDAOService;
+import com.project.letsreview.datamodel.repository.TopicDAOService;
+import com.project.letsreview.datamodel.repository.UserDAOService;
 
 @Controller
 @ResponseBody
