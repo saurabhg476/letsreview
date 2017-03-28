@@ -23,7 +23,7 @@
     
     <context:property-placeholder order="2" location="classpath*:META-INF/spring/*.properties"/>
     <context:spring-configured/>
-    <context:component-scan base-package="com.saurabh"/>
+    <context:component-scan base-package="com.project"/>
     
     	<!-- DataSource -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource"
@@ -57,7 +57,7 @@
 	</bean>
 
 
-	<jpa:repositories base-package="com.saurabh"
+	<jpa:repositories base-package="com.project"
 		transaction-manager-ref="letsReviewTransactionManager"
 		entity-manager-factory-ref="letsReviewEntityManagerFactory" />
     

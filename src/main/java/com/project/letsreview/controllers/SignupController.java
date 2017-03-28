@@ -68,7 +68,11 @@ public class SignupController {
 			authentication.setPassword(hashedPassword);
 			authenticationDAO.save(authentication);
 			
-			return new ResponseEntity<String>(HttpStatus.OK);
+			GenericResponse successResponse = new GenericResponse();
+			successResponse.setCode("0000");
+			successResponse.setStatus("SUCCESS");
+			successResponse.setMessage("User has been created successfully");
+			return new ResponseEntity<String>(gson.toJson(successResponse), HttpStatus.OK);
 		}catch(Exception e){
 			return new ResponseEntity<String>(gson.toJson(new GenericFailureResponse()), HttpStatus.OK);
 		}
