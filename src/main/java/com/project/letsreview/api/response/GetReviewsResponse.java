@@ -3,7 +3,7 @@ package com.project.letsreview.api.response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetReviewsResponse {
+public class GetReviewsResponse extends GenericResponse {
 	String topicName;
 	List<ResponseReviewObject> list = new ArrayList<ResponseReviewObject>();
 

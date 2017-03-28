@@ -69,6 +69,9 @@ public class ReviewsController {
 		}
 		
 		response.setTopicName(topicName);
+		response.setCode("00");
+		response.setStatus("SUCCESS");
+
 		String responseString = gson.toJson(response);
 		return new ResponseEntity<String>(responseString, HttpStatus.OK);
 	}
