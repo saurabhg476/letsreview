@@ -5,4 +5,6 @@ validations:
 2000: username not available.
 2001: This mobile no is already registered
 2002: This email id is already registered
+2003: Password is incorrect.
+2004: Username does not exist
 
