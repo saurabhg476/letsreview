@@ -17,14 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.project.letsreview.api.request.PostReviewsRequest;
+import com.project.letsreview.api.response.GenericResponse;
+import com.project.letsreview.api.response.GenericSuccessResponse;
 import com.project.letsreview.api.response.GetReviewsResponse;
 import com.project.letsreview.api.response.ResponseReviewObject;
 import com.project.letsreview.datamodel.entity.Review;
 import com.project.letsreview.datamodel.entity.Topic;
 import com.project.letsreview.datamodel.entity.User;
+import com.project.letsreview.datamodel.entity.UserSession;
 import com.project.letsreview.datamodel.repository.ReviewDAOService;
 import com.project.letsreview.datamodel.repository.TopicDAOService;
 import com.project.letsreview.datamodel.repository.UserDAOService;
+import com.project.letsreview.datamodel.repository.UserSessionDAOService;
 
 @Controller
 @ResponseBody
@@ -39,6 +43,9 @@ public class ReviewsController {
 
 	@Autowired
 	private UserDAOService userDAO;
+
+	@Autowired
+	private UserSessionDAOService userSessionDAO;
 
 	Gson gson = new Gson();
 
@@ -80,15 +87,33 @@ public class ReviewsController {
 	public ResponseEntity<String> createReview(HttpServletRequest httpRequest, @RequestBody String jsonRequest) {
 
 		PostReviewsRequest postReviewsRequest = gson.fromJson(jsonRequest, PostReviewsRequest.class);
-		
-		String body = postReviewsRequest.getBody();
 		String username = postReviewsRequest.getUsername();
+		String sessionToken = postReviewsRequest.getSession_token();
+
+		UserSession userSession = userSessionDAO.findOneByUsername(username);
+		if (userSession == null) {
+			GenericResponse response = new GenericResponse();
+			response.setCode("2005");
+			response.setMessage("User is not logged in");
+			response.setStatus("FAIL");
+			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+		}
+
+		if (!sessionToken.equals(userSession.getSessionToken())) {
+			GenericResponse response = new GenericResponse();
+			response.setCode("2006");
+			response.setMessage("Session Token does not match");
+			response.setStatus("FAIL");
+			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+		}
+
+		String body = postReviewsRequest.getBody();
+
 		int rating = postReviewsRequest.getRating();
 		String topic_name = postReviewsRequest.getTopic_name();
 		
-		
 		reviewDAO.createReview(body, username, rating, topic_name);
-		return new ResponseEntity<String>(HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson(new GenericSuccessResponse()), HttpStatus.OK);
 
 	}
 }

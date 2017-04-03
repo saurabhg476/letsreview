@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.project.letsreview.api.request.PostSignupRequest;
-import com.project.letsreview.api.response.GenericFailureResponse;
+import com.project.letsreview.api.response.GenericFailResponse;
 import com.project.letsreview.api.response.GenericResponse;
 import com.project.letsreview.datamodel.entity.Authentication;
 import com.project.letsreview.datamodel.entity.User;
@@ -74,7 +74,7 @@ public class SignupController {
 			successResponse.setMessage("User has been created successfully");
 			return new ResponseEntity<String>(gson.toJson(successResponse), HttpStatus.OK);
 		}catch(Exception e){
-			return new ResponseEntity<String>(gson.toJson(new GenericFailureResponse()), HttpStatus.OK);
+			return new ResponseEntity<String>(gson.toJson(new GenericFailResponse()), HttpStatus.OK);
 		}
 
 		

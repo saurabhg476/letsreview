@@ -5,6 +5,7 @@ public class PostReviewsRequest {
 	private String body;
 	private String username;
 	private String topic_name;
+	private String session_token;
 
 	public int getRating() {
 		return rating;
@@ -36,5 +37,13 @@ public class PostReviewsRequest {
 
 	public void setTopic_name(String topic_name) {
 		this.topic_name = topic_name;
+	}
+
+	public String getSession_token() {
+		return session_token;
+	}
+
+	public void setSession_token(String session_token) {
+		this.session_token = session_token;
 	}
 }
