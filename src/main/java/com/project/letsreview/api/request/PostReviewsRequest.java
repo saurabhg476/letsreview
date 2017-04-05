@@ -1,10 +1,22 @@
 package com.project.letsreview.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+
 public class PostReviewsRequest {
+
+	@Range(min = 1, max = 5)
 	private int rating;
+
 	private String body;
+
+	@NotBlank
 	private String username;
+
+	@NotBlank
 	private String topic_name;
+
+	@NotBlank
 	private String session_token;
 
 	public int getRating() {

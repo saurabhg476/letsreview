@@ -1,6 +1,7 @@
 package com.project.letsreview.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -36,8 +37,9 @@ public class SignupController {
 	Gson gson = new Gson();
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> createUser(HttpServletRequest httpRequest, @RequestBody String jsonRequest) {
-		PostSignupRequest postSignupRequest = gson.fromJson(jsonRequest, PostSignupRequest.class);
+	public ResponseEntity<String> createUser(HttpServletRequest httpRequest,
+			@RequestBody @Valid PostSignupRequest postSignupRequest) {
+
 		if (!isUsernameAvailable(postSignupRequest.getUsername())) {
 			return generateUsernameUnavailableResponse();
 		}

@@ -1,5 +1,7 @@
 package com.project.letsreview.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,8 @@ public class TopicController {
 	Gson gson = new Gson();
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> createTopic(@RequestBody String jsonRequest) {
+	public ResponseEntity<String> createTopic(@RequestBody @Valid PostTopicRequest postTopicRequest) {
 
-		PostTopicRequest postTopicRequest = gson.fromJson(jsonRequest, PostTopicRequest.class);
 		String name = postTopicRequest.getName();
 
 		Topic topic = topicDAO.findTopicByName(name);

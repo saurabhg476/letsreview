@@ -1,10 +1,21 @@
 package com.project.letsreview.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class PostSignupRequest {
+
+	@NotBlank
 	private String name;
+
 	private String phone_no;
+
+	@NotBlank
 	private String email_id;
+
+	@NotBlank
 	private String username;
+
+	@NotBlank
 	private String password;
 
 	public String getName() {

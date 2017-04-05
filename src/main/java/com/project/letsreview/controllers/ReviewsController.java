@@ -3,6 +3,7 @@ package com.project.letsreview.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,9 +85,9 @@ public class ReviewsController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> createReview(HttpServletRequest httpRequest, @RequestBody String jsonRequest) {
+	public ResponseEntity<String> createReview(HttpServletRequest httpRequest,
+			@RequestBody @Valid PostReviewsRequest postReviewsRequest) {
 
-		PostReviewsRequest postReviewsRequest = gson.fromJson(jsonRequest, PostReviewsRequest.class);
 		String username = postReviewsRequest.getUsername();
 		String sessionToken = postReviewsRequest.getSession_token();
 

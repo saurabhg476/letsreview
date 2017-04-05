@@ -1,7 +1,13 @@
 package com.project.letsreview.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class PostTopicRequest {
+
+	@NotBlank
 	private String name;
+
+	@NotBlank
 	private String description;
 
 	public String getName() {
