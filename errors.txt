@@ -7,4 +7,7 @@ validations:
 2002: This email id is already registered
 2003: Password is incorrect.
 2004: Username does not exist
+2005: User is not logged in
+2006: Session Token does not match
+2007: Topic already exists
 
