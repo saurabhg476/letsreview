@@ -113,7 +113,9 @@ public class ReviewsController {
 		String topic_name = postReviewsRequest.getTopic_name();
 		
 		reviewDAO.createReview(body, username, rating, topic_name);
-		return new ResponseEntity<String>(gson.toJson(new GenericSuccessResponse()), HttpStatus.OK);
+		GenericSuccessResponse response = new GenericSuccessResponse();
+		response.setMessage("review has been created successfully");
+		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
 
 	}
 }
