@@ -1,8 +1,13 @@
 package com.project.letsreview.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class PostLoginRequest {
 
+	@NotBlank
 	private String username;
+
+	@NotBlank
 	private String password;
 
 	public String getUsername() {

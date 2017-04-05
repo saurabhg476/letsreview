@@ -1,5 +1,7 @@
 package com.project.letsreview.controllers;
 
+import javax.validation.Valid;
+
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +45,7 @@ public class LoginController {
 	Gson gson = new Gson();
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody String jsonRequest) {
-		PostLoginRequest postLoginRequest = gson.fromJson(jsonRequest, PostLoginRequest.class);
+	public ResponseEntity<String> login(@RequestBody @Valid PostLoginRequest postLoginRequest) {
 		String username = postLoginRequest.getUsername();
 		String password = postLoginRequest.getPassword();
 		
