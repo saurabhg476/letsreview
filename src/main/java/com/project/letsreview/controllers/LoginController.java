@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.project.letsreview.api.request.PostLoginRequest;
-import com.project.letsreview.api.response.GenericResponse;
 import com.project.letsreview.api.response.PostLoginResponse;
 import com.project.letsreview.datamodel.entity.Authentication;
 import com.project.letsreview.datamodel.entity.User;
@@ -23,6 +22,7 @@ import com.project.letsreview.datamodel.entity.UserSession;
 import com.project.letsreview.datamodel.repository.AuthenticationDAOService;
 import com.project.letsreview.datamodel.repository.UserDAOService;
 import com.project.letsreview.datamodel.repository.UserSessionDAOService;
+import com.project.letsreview.exceptions.CustomGenericException;
 import com.project.letsreview.utils.SessionTokenGenerator;
 
 @Controller
@@ -45,16 +45,13 @@ public class LoginController {
 	Gson gson = new Gson();
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody @Valid PostLoginRequest postLoginRequest) {
+	public ResponseEntity<String> login(@RequestBody @Valid PostLoginRequest postLoginRequest)
+			throws CustomGenericException {
 		String username = postLoginRequest.getUsername();
 		String password = postLoginRequest.getPassword();
 		
 		if (!isUserExists(username)) {
-			GenericResponse response = new GenericResponse();
-			response.setCode("2004");
-			response.setMessage("Username does not exist");
-			response.setStatus("FAIL");
-			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+			throw new CustomGenericException("2004");
 		}
 
 		if (isUsernamePasswordMatches(username, password)) {
@@ -77,11 +74,7 @@ public class LoginController {
 			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
 
 		} else {
-			GenericResponse response = new GenericResponse();
-			response.setCode("2003");
-			response.setMessage("Password is incorrect");
-			response.setStatus("FAIL");
-			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+			throw new CustomGenericException("2003");
 		}
 	}
 
