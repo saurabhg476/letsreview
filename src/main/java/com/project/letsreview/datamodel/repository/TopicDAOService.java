@@ -12,4 +12,7 @@ public interface TopicDAOService extends CrudRepository<Topic, Long> {
 
 	@Query(nativeQuery = true, value = "select * from topic where name = ?1")
 	public Topic findTopicByName(String topicName);
+
+	@Query(nativeQuery = true, value = "select * from topic where name like %?1% limit 10")
+	public List<Topic> findTopics(String query);
 }

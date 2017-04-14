@@ -1,5 +1,8 @@
 package com.project.letsreview.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.project.letsreview.api.request.PostTopicRequest;
 import com.project.letsreview.api.response.GenericResponse;
 import com.project.letsreview.api.response.GenericSuccessResponse;
+import com.project.letsreview.api.response.GetTopicsResponse;
 import com.project.letsreview.datamodel.entity.Topic;
 import com.project.letsreview.datamodel.repository.TopicDAOService;
 
@@ -53,4 +58,22 @@ public class TopicController {
 
 		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
 	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<String> getTopics(@RequestParam("q") String query) {
+		List<String> topicNames = new ArrayList<String>();
+		List<Topic> topics = topicDAO.findTopics(query);
+
+		for (Topic topic : topics) {
+			topicNames.add(topic.getName());
+		}
+
+		GetTopicsResponse response = new GetTopicsResponse();
+		response.setCode("00");
+		response.setStatus("SUCCESS");
+		response.setTopicNames(topicNames);
+
+		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+	}
+
 }
