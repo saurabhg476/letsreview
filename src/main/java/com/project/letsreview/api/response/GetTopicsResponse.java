@@ -3,14 +3,36 @@ package com.project.letsreview.api.response;
 import java.util.List;
 
 public class GetTopicsResponse extends GenericResponse {
-	List<String> topicNames;
 
-	public List<String> getTopicNames() {
-		return topicNames;
+	private List<TopicResponseObject> topicsList;
+
+	public List<TopicResponseObject> getTopicsList() {
+		return topicsList;
 	}
 
-	public void setTopicNames(List<String> topicNames) {
-		this.topicNames = topicNames;
+	public void setTopicsList(List<TopicResponseObject> list) {
+		this.topicsList = list;
+	}
+
+	public static class TopicResponseObject {
+		private String name;
+		private String summary;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String topicName) {
+			this.name = topicName;
+		}
+
+		public String getSummary() {
+			return summary;
+		}
+
+		public void setSummary(String summary) {
+			this.summary = summary;
+		}
 	}
 
 }

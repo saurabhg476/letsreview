@@ -2,7 +2,7 @@ package com.project.letsreview.api.response;
 
 public class PostLoginResponse extends GenericResponse {
 	private String username;
-	private String sessionToken;
+	private String session_token;
 
 	public String getUsername() {
 		return username;
@@ -13,10 +13,10 @@ public class PostLoginResponse extends GenericResponse {
 	}
 
 	public String getSessionToken() {
-		return sessionToken;
+		return session_token;
 	}
 
 	public void setSessionToken(String sessionToken) {
-		this.sessionToken = sessionToken;
+		this.session_token = sessionToken;
 	}
 }

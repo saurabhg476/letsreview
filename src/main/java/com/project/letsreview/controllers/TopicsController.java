@@ -20,13 +20,14 @@ import com.project.letsreview.api.request.PostTopicRequest;
 import com.project.letsreview.api.response.GenericResponse;
 import com.project.letsreview.api.response.GenericSuccessResponse;
 import com.project.letsreview.api.response.GetTopicsResponse;
+import com.project.letsreview.api.response.GetTopicsResponse.TopicResponseObject;
 import com.project.letsreview.datamodel.entity.Topic;
 import com.project.letsreview.datamodel.repository.TopicDAOService;
 
 @Controller
 @ResponseBody
-@RequestMapping(value = "/topic")
-public class TopicController {
+@RequestMapping(value = "/topics")
+public class TopicsController {
 
 	@Autowired
 	TopicDAOService topicDAO;
@@ -61,17 +62,21 @@ public class TopicController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<String> getTopics(@RequestParam("q") String query) {
-		List<String> topicNames = new ArrayList<String>();
+
+		List<TopicResponseObject> topicList = new ArrayList<TopicResponseObject>();
 		List<Topic> topics = topicDAO.findTopics(query);
 
 		for (Topic topic : topics) {
-			topicNames.add(topic.getName());
+			TopicResponseObject topicResponseObject = new TopicResponseObject();
+			topicResponseObject.setName(topic.getName());
+			topicResponseObject.setSummary(topic.getSummary());
+			topicList.add(topicResponseObject);
 		}
 
 		GetTopicsResponse response = new GetTopicsResponse();
 		response.setCode("00");
 		response.setStatus("SUCCESS");
-		response.setTopicNames(topicNames);
+		response.setTopicsList(topicList);
 
 		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
 	}
