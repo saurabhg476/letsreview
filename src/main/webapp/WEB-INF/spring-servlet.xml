@@ -11,23 +11,8 @@
 	<mvc:resources mapping="app/**" location="/app/" />
 	
 	<context:component-scan base-package="com.project" />
-	
- 	<!--  <mvc:interceptors>
-        
-           <bean class="in.novopay.controller.services.ExternalAuthInterceptor"></bean>
-        
-     </mvc:interceptors> -->
    
- <!--
- 	<bean id="authenticationInterceptor" class="in.novopay.controller.api.AuthenticationInterceptor"></bean-->
  	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
- 	<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">  -->
- <!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
- 		<property name="interceptors">
- 			<bean class="in.novopay.controller.api.AuthenticationInterceptor"></bean>
- 		</property> 	
- 	</bean>
-  -->
   	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
