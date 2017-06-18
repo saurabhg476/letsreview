@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetReviewsResponse extends GenericResponse {
-	String topicName;
+	private String topicName;
+	private String topicSummary;
 	List<ResponseReviewObject> list = new ArrayList<ResponseReviewObject>();
 
 	public String getTopicName() {
@@ -13,6 +14,14 @@ public class GetReviewsResponse extends GenericResponse {
 
 	public void setTopicName(String topicName) {
 		this.topicName = topicName;
+	}
+
+	public String getTopicSummary() {
+		return topicSummary;
+	}
+
+	public void setTopicSummary(String topicSummary) {
+		this.topicSummary = topicSummary;
 	}
 
 	public List<ResponseReviewObject> getList() {

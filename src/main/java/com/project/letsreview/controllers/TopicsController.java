@@ -50,6 +50,7 @@ public class TopicsController {
 
 		topic = new Topic();
 		topic.setName(postTopicRequest.getName());
+		topic.setSummary(postTopicRequest.getSummary());
 		topic.setDescription(postTopicRequest.getDescription());
 
 		topicDAO.save(topic);

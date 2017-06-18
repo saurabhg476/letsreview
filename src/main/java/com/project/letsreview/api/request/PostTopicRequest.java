@@ -8,6 +8,8 @@ public class PostTopicRequest {
 	private String name;
 
 	@NotBlank
+	private String summary;
+
 	private String description;
 
 	public String getName() {
@@ -16,6 +18,14 @@ public class PostTopicRequest {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	public String getDescription() {

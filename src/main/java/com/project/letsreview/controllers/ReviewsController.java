@@ -77,6 +77,7 @@ public class ReviewsController {
 		}
 		
 		response.setTopicName(topicName);
+		response.setTopicSummary(topic.getSummary());
 		response.setCode("00");
 		response.setStatus("SUCCESS");
 
