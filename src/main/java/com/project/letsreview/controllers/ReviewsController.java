@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,11 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.project.letsreview.api.request.PostReviewsRequest;
-import com.project.letsreview.api.response.GenericResponse;
 import com.project.letsreview.api.response.GenericSuccessResponse;
 import com.project.letsreview.api.response.GetReviewsResponse;
 import com.project.letsreview.api.response.ResponseReviewObject;
@@ -30,11 +32,14 @@ import com.project.letsreview.datamodel.repository.ReviewDAOService;
 import com.project.letsreview.datamodel.repository.TopicDAOService;
 import com.project.letsreview.datamodel.repository.UserDAOService;
 import com.project.letsreview.datamodel.repository.UserSessionDAOService;
+import com.project.letsreview.exceptions.CustomGenericException;
 
 @Controller
 @ResponseBody
 @RequestMapping(value = "/reviews")
 public class ReviewsController {
+
+	private static final Logger requestLogger = LoggerFactory.getLogger("request_logger");
 
 	@Autowired
 	private ReviewDAOService reviewDAO;
@@ -51,15 +56,19 @@ public class ReviewsController {
 	Gson gson = new Gson();
 
 	@RequestMapping(value = "/{topicName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getReviews(HttpServletRequest httpRequest, @PathVariable("topicName") String topicName)
+	public ResponseEntity<String> getReviews(HttpServletRequest httpRequest,
+			@PathVariable("topicName") String topicName, @RequestParam("page") int page,
+			@RequestParam("per_page") int perPage)
 			throws InterruptedException {
 		
+		requestLogger.info("GET-REVIEWS:" + " topicName=" + topicName + " page=" + page + " per_page=" + perPage);
+
 		Topic topic = topicDAO.findTopicByName(topicName);
 		if (topic == null) {
 			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
 
-		List<Review> reviews = reviewDAO.findReviewsByTopicName(topicName);
+		List<Review> reviews = reviewDAO.findReviewsByTopicName(topicName, perPage, page * perPage);
 		
 		GetReviewsResponse response = new GetReviewsResponse();
 
@@ -87,34 +96,28 @@ public class ReviewsController {
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createReview(HttpServletRequest httpRequest,
-			@RequestBody @Valid PostReviewsRequest postReviewsRequest) {
+			@RequestBody @Valid PostReviewsRequest postReviewsRequest) throws CustomGenericException {
 
 		String username = postReviewsRequest.getUsername();
 		String sessionToken = postReviewsRequest.getSession_token();
+		String topicName = postReviewsRequest.getTopic_name();
+		String body = postReviewsRequest.getBody();
+		int rating = postReviewsRequest.getRating();
 
 		UserSession userSession = userSessionDAO.findOneByUsername(username);
 		if (userSession == null) {
-			GenericResponse response = new GenericResponse();
-			response.setCode("2005");
-			response.setMessage("User is not logged in");
-			response.setStatus("FAIL");
-			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+			throw new CustomGenericException("2005");
 		}
 
 		if (!sessionToken.equals(userSession.getSessionToken())) {
-			GenericResponse response = new GenericResponse();
-			response.setCode("2006");
-			response.setMessage("Session Token does not match");
-			response.setStatus("FAIL");
-			return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+			throw new CustomGenericException("2006");
+		}
+		
+		if (reviewDAO.findReviewByUserNameAndTopicName(username, topicName) != null) {
+			throw new CustomGenericException("2007");
 		}
 
-		String body = postReviewsRequest.getBody();
-
-		int rating = postReviewsRequest.getRating();
-		String topic_name = postReviewsRequest.getTopic_name();
-		
-		reviewDAO.createReview(body, username, rating, topic_name);
+		reviewDAO.createReview(body, username, rating, topicName);
 		GenericSuccessResponse response = new GenericSuccessResponse();
 		response.setMessage("review has been created successfully");
 		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);

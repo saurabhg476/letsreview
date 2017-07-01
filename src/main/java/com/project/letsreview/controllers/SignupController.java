@@ -22,6 +22,7 @@ import com.project.letsreview.datamodel.entity.Authentication;
 import com.project.letsreview.datamodel.entity.User;
 import com.project.letsreview.datamodel.repository.AuthenticationDAOService;
 import com.project.letsreview.datamodel.repository.UserDAOService;
+import com.project.letsreview.exceptions.CustomGenericException;
 
 @Controller
 @ResponseBody
@@ -38,16 +39,16 @@ public class SignupController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<String> createUser(HttpServletRequest httpRequest,
-			@RequestBody @Valid PostSignupRequest postSignupRequest) {
+			@RequestBody @Valid PostSignupRequest postSignupRequest) throws CustomGenericException {
 
 		if (!isUsernameAvailable(postSignupRequest.getUsername())) {
-			return generateUsernameUnavailableResponse();
+			throw new CustomGenericException("2000");
 		}
 		if (isPhoneNoDuplicate(postSignupRequest.getPhone_no())) {
-			return generatePhoneNoDuplicateResponse();
+			throw new CustomGenericException("2001");
 		}
 		if (isEmailIdDuplicate(postSignupRequest.getEmail_id())) {
-			return generateEmailIdDuplicateResponse();
+			throw new CustomGenericException("2002");
 		}
 		return createUser(postSignupRequest);
 	}
@@ -78,9 +79,6 @@ public class SignupController {
 		}catch(Exception e){
 			return new ResponseEntity<String>(gson.toJson(new GenericFailResponse()), HttpStatus.OK);
 		}
-
-		
-
 	}
 
 	private boolean isUsernameAvailable(String username) {
@@ -88,26 +86,9 @@ public class SignupController {
 		return (user == null) ? true : false;
 	}
 
-	private ResponseEntity<String> generateUsernameUnavailableResponse() {
-		GenericResponse response = new GenericResponse();
-		response.setCode("2000");
-		response.setStatus("FAIL");
-		response.setMessage("username not available");
-		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
-	}
-
 	private boolean isPhoneNoDuplicate(String phoneNo) {
 		User user = userDAO.findUserByPhoneNo(phoneNo);
 		return (user == null) ? false : true;
-	}
-
-	private ResponseEntity<String> generatePhoneNoDuplicateResponse() {
-		GenericResponse response = new GenericResponse();
-		response.setCode("2001");
-		response.setStatus("FAIL");
-		response.setMessage("This mobile no is already registered");
-
-		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
 	}
 
 	private boolean isEmailIdDuplicate(String emailId){
@@ -115,12 +96,4 @@ public class SignupController {
 		return (user == null) ? false : true;
 	}
 
-	private ResponseEntity<String> generateEmailIdDuplicateResponse() {
-		GenericResponse response = new GenericResponse();
-		response.setCode("2002");
-		response.setStatus("FAIL");
-		response.setMessage("This email id is already registered");
-
-		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
-	}
 }
