@@ -12,7 +12,7 @@ import com.project.letsreview.datamodel.entity.Review;
 public interface ReviewDAOService extends CrudRepository<Review, Long> {
 	List<Review> findAll();
 
-	@Query(nativeQuery = true, value = "select * from review where review.topic_id = (select id from topic where topic.name = ?1) limit ?3,?2")
+	@Query(nativeQuery = true, value = "select * from review where review.topic_id = (select id from topic where topic.name = ?1) order by created_on desc limit ?3,?2")
 	public List<Review> findReviewsByTopicName(String topicName, int limit, int offset);
 
 	@Transactional(value = "letsReviewTransactionManager")
@@ -26,5 +26,11 @@ public interface ReviewDAOService extends CrudRepository<Review, Long> {
 	@Query(nativeQuery = true, value = "SELECT * FROM review WHERE user_id = (SELECT id FROM `user` WHERE username= ?1) AND topic_id = "
 			+ "(select id from topic where name = ?2)")
 	public Review findReviewByUserNameAndTopicName(String userName, String topicName);
+
+	@Transactional(value = "letsReviewTransactionManager")
+	@Modifying
+	@Query(nativeQuery = true, value = "DELETE FROM review WHERE user_id = (SELECT id FROM user WHERE username = ?1) "
+			+ "AND topic_id = (SELECT id FROM topic WHERE name = ?2)")
+	public void deleteReviewByUsernameAndTopicName(String username, String topicName);
 
 }

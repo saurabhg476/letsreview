@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.project.letsreview.api.request.DeleteReviewsRequest;
 import com.project.letsreview.api.request.PostReviewsRequest;
 import com.project.letsreview.api.response.GenericSuccessResponse;
 import com.project.letsreview.api.response.GetReviewsResponse;
@@ -121,6 +122,29 @@ public class ReviewsController {
 		GenericSuccessResponse response = new GenericSuccessResponse();
 		response.setMessage("review has been created successfully");
 		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
-
 	}
+
+	@RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> delete(HttpServletRequest httpRequest,
+			@RequestBody @Valid DeleteReviewsRequest deleteReviewsRequest) throws CustomGenericException {
+		String username = deleteReviewsRequest.getUsername();
+		String topicName = deleteReviewsRequest.getTopic_name();
+		String sessionToken = deleteReviewsRequest.getSession_token();
+
+		UserSession userSession = userSessionDAO.findOneByUsername(username);
+		if (userSession == null) {
+			throw new CustomGenericException("2005");
+		}
+
+		if (!sessionToken.equals(userSession.getSessionToken())) {
+			throw new CustomGenericException("2006");
+		}
+
+		reviewDAO.deleteReviewByUsernameAndTopicName(username, topicName);
+		GenericSuccessResponse response = new GenericSuccessResponse();
+		response.setMessage("review has been deleted successfully");
+
+		return new ResponseEntity<String>(gson.toJson(response), HttpStatus.OK);
+	}
+
 }
