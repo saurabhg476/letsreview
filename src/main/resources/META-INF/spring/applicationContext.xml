@@ -29,9 +29,9 @@
 	<bean class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" id="letsReviewDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1/letsreview" />
-		<property name="username" value="root" />
-		<property name="password" value="Villa#25" />
+		<property name="url" value="jdbc:mysql://${RDS_HOSTNAME}/${RDS_DB_NAME}" />
+		<property name="username" value="${RDS_USERNAME}" />
+		<property name="password" value="${RDS_PASSWORD}" />
 		<property name="initialSize" value="20" />
 		<property name="maxActive" value="200" />
 		<property name="maxIdle" value="100" />
