@@ -18,6 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 * Clone the repo in your local enviroment. Make sure master branch is checked out.
 * Setup the database by running the scripts present in the file database_script.sql.
 * Import the project as maven project in eclipse.
+* Configure your db properties in applicationContext.xml file.
 * Open project properties. Go to Deployment Assembly. Click on Add, select Java Build Path Properties, then choose Maven Dependencies.
 * Create tomcat server in eclipse.
 * Add letsreview war to tomcat
@@ -31,7 +32,7 @@ will search for "amazon" in the list of topics.
 
 Depending on whether that topic is present or not you shall got the following output:
 
-If the topic is not present:
+If the topic is present:
 
 OUTPUT : 
 {
@@ -45,7 +46,7 @@ OUTPUT :
   "code": "00"
 }
 
-If topic is present:
+If topic is not present:
 OUTPUT : 
 {
   "topicsList": [],
