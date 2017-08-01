@@ -1,6 +1,6 @@
 # Letsreview
 
-A web based platform for reviews. Anyone can post any review for any topic. An android app that connects to this platform for backend can be found at https://github.com/saurabhg476/letsreview-android-app.
+Letsreview is an open-source platform with an aim to allow anyone to share review on any topic. An android app that demonstrates this idea can be found at https://github.com/saurabhg476/letsreview-android-app.
 
 ## Getting Started
 
