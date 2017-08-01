@@ -1,6 +1,6 @@
 # Letsreview
 
-A web app for reviews. Anyone can post any review for any topic.
+A web based platform for reviews. Anyone can post any review for any topic. An android app that connects to this platform for backend can be found at https://github.com/saurabhg476/letsreview-android-app.
 
 ## Getting Started
 
@@ -15,64 +15,54 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Clone the repo in your local enviroment.
-Import the project as maven project in eclipse. 
-Create tomcat server in eclipse.
-Add letsreview war to tomcat
-Add maven depend
-Start the server.
+* Clone the repo in your local enviroment. Make sure master branch is checked out.
+* Setup the database by running the scripts present in the file database_script.sql.
+* Import the project as maven project in eclipse.
+* Open project properties. Go to Deployment Assembly. Click on Add, select Java Build Path Properties, then choose Maven Dependencies.
+* Create tomcat server in eclipse.
+* Add letsreview war to tomcat
+* Start the server.
 
-A step by step series of examples that tell you have to get a development env running
+You can call any api to confirm whether the server is up and running. 
+For example:
+```
+GET http://<serverAddress>:<port>/letsreview/topics?q=amazon
+will search for "amazon" in the list of topics.
 
-Say what the step will be
+Depending on whether that topic is present or not you shall got the following output:
+
+If the topic is not present:
+
+OUTPUT : 
+{
+  "topicsList": [
+    {
+      "name": "amazon",
+      "summary": "e-commerce corporation"
+    }
+  ],
+  "status": "SUCCESS",
+  "code": "00"
+}
+
+If topic is present:
+OUTPUT : 
+{
+  "topicsList": [],
+  "status": "SUCCESS",
+  "code": "00"
+}
 
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * [Spring](https://spring.io/docs) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
+* [Maven](https://maven.apache.org/) - Dependency Management and Build tool
 * [Mysql](https://dev.mysql.com/doc/) - Database
 
 ## Contributing
 
 Anybody is more than welcome to contribute
-
-
 
 ## Authors
 
