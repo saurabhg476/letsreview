@@ -58,6 +58,7 @@ OUTPUT :
 ## Built With
 
 * [Spring](https://spring.io/docs) - The web framework used
+* [Hibernate](http://hibernate.org/orm/) - The ORM tool
 * [Maven](https://maven.apache.org/) - Dependency Management and Build tool
 * [Mysql](https://dev.mysql.com/doc/) - Database
 
