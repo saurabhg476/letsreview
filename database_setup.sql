@@ -1,3 +1,7 @@
+create database letsreview;
+
+use letsreview;
+
 CREATE TABLE `topic` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
